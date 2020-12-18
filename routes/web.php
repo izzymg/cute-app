@@ -37,7 +37,7 @@ function generatePrettyDate($created_at) {
 Route::get('/', function(PostController $postController) {
     $posts = collect($postController->get())->map(function($post) {
         // Cut text down to bite
-        $post->text = Str::substr($post->text, 0, 10) . '...';
+        $post->text = Str::substr($post->text, 0, 300) . '...';
         $post->pretty_date = generatePrettyDate($post->created_at);
         return $post;
     });
