@@ -18,13 +18,21 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller {
     public function get() {
-        $posts = DB::table('posts')->orderBy('created_at', 'desc')->get();
+        try {
+            $posts = DB::table('posts')->orderBy('created_at', 'desc')->get();
+        } catch(Exception $e) {
+            return abort(500);
+        }
         return $posts;
     }
 
     public function getOne($id) {
-        $posts = DB::table('posts')->where('id', '=', $id)->first();
-        return $posts;
+        try {
+            $posts = DB::table('posts')->where('id', '=', $id)->first();
+            return $posts;
+        } catch(Exception $e) {
+            return abort(500);
+        }
     }
 
     public function update(Request $request, $id) {
@@ -33,21 +41,21 @@ class PostController extends Controller {
                 ->where('id', $id)
                 ->update(['title' => $request->get('title'), 'text' => $request->get('text')]);
         } catch(Exception $e) {
-            return 'unknown error';
+            return abort(500);
         }
-        return 'ok';
+        return 'Post updated';
     }
 
     public function new(Request $request) {
         try {
-            DB::table('posts')->insert([
+            $id = DB::table('posts')->insertGetId([
                 'title' => $request->get('title'),
                 'text' => $request->get('text'),
                 'created_at' => now(),
             ]);
+            return redirect()->route('post', $id);
         } catch(Exception $e) {
             return $e->getMessage();
         }
-        return 'ok';
     }
 }
