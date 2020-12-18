@@ -36,10 +36,11 @@ class PostController extends Controller {
     }
 
     public function update(Request $request, $id) {
+        $post = $request->only(['title', 'text']);
         try {
             DB::table('posts')
                 ->where('id', $id)
-                ->update(['title' => $request->get('title'), 'text' => $request->get('text')]);
+                ->update($post);
         } catch(Exception $e) {
             return abort(500);
         }
