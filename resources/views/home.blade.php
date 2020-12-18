@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Izzy MG's Blog</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link href="css/app.css" rel="stylesheet">
-    </head>
-    <body class="">
+    <x-head></x-head>
+    <body>
         @auth
         <div class="authed-banner">
             <span class="logged-in-text">You're logged in. </span>
