@@ -22,14 +22,8 @@
             <a href="{{ route('dash') }}" class="">Dashboard</a>
         </div>
         @endauth
-        <main class="main">
-            <h1 class="main-heading">Izzy MG's Blog</h1>
-            <p class="site-desc">
-                Hi! I'm Izzy Guethert, also known as Izzy MG. I write whatever I feel like here,
-                generally about web development and programming.
-            </p>
-            <div class="posts-grid">
-                <aside class="sidebar"/>
+        <div class="site-grid">
+            <main>
                 <div class="articles-container">
                     @foreach ($posts as $post)
                         <article class="post-wrap">
@@ -45,7 +39,25 @@
                         </article>
                     @endforeach
                 </div>
-            </div>
-        </main>
+            </main>
+            <aside class="sidebar">
+                <h1 class="main-heading">Izzy MG's Blog</h1>
+                <p class="site-desc">
+                    Hi! I'm Izzy Guethert, also known as Izzy MG. I write whatever I feel like here,
+                    generally about web development and programming.
+                </p>
+                <p>
+                    I currently specialize in e-learning and learning management systems (LMSs),
+                    which I administrate, improving learner experience & accessibility.
+                </p>
+                <p>
+                    My portfolio/home page is linked below.
+                </p>
+                <div class="links">
+                    <a class="site-link" href="https://izzymg.dev">izzymg - home</a>
+                    <a class="git-link" href="https://github.com/izzymg">github/izzymg</a>
+                </div>
+            </aside>
+        </div>
     </body>
 </html>

@@ -17,9 +17,33 @@ main {
     margin: 0 1em;
 }
 
-.posts-grid {
+.sidebar {
+    --gradient-to-color: #fff;
+    --gradient-from-color: #f5f5fa;
+    --gradient-color-stops: var(--gradient-from-color),var(--gradient-to-color);
+    
+    background-image: linear-gradient(180deg,var(--gradient-color-stops));
+
+    padding: 0.3em;
+
+    text-align: center;
+}
+
+.sidebar .links a {
+    display: block;
+    margin: 0.5em 0;
+    font-size: 1.2em;
+
+    color: lightgreen;
+}
+
+.main-heading {
+    font-size: 2.3em;
+}
+
+.site-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
     gap: 0.9em;
 }
 
