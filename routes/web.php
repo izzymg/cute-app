@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
@@ -16,9 +17,28 @@ use App\Http\Controllers\PostController;
 |
 */
 
+/**
+    
+*/
+function generatePrettyDate($created_at) {
+
+    $parsed_timestamp = \Carbon\Carbon::parse($created_at);
+    $diffInDays = $parsed_timestamp->diffInDays(\Carbon\Carbon::now());
+
+    if ($diffInDays > 30) {
+        return $parsed_timestamp->diffInMonths(\Carbon\Carbon::now()) . 'months ago';
+    } elseif ($diffInDays == 0) {
+        return 'Today';
+    } else {
+        return $diffInDays . ' days ago';
+    }
+}
+
 Route::get('/', function(PostController $postController) {
     $posts = collect($postController->get())->map(function($post) {
+        // Cut text down to bite
         $post->text = Str::substr($post->text, 0, 10) . '...';
+        $post->pretty_date = generatePrettyDate($post->created_at);
         return $post;
     });
 

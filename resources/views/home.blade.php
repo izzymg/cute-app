@@ -31,6 +31,7 @@
                 <h4>
                     <a href="{{ route('post', [$post->id]) }}">{{ $post->title }}</a>
                 </h4>
+                <span>{{ $post->pretty_date }}</span>
                 <p>{{ $post->text }}</p>
             @endforeach
             </main>
