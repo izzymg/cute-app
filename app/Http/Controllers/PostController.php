@@ -18,7 +18,7 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller {
     public function get() {
-        $posts = DB::table('posts')->get();
+        $posts = DB::table('posts')->orderBy('created_at', 'desc')->get();
         return $posts;
     }
 
