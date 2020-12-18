@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    font-family: "Nunito";
 }
 
 h1, h2, h3, h4 {
@@ -48,10 +47,26 @@ main {
     gap: 0.9em;
 }
 
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.75;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 .post-wrap {
     margin: 1.3em 0;
     padding: 0.5em;
     text-align: left;
+
+    animation: fade-in;
 }
 
 .post-wrap .post-title {
