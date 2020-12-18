@@ -23,24 +23,41 @@ main {
     gap: 0.9em;
 }
 
-.posts-grid .post-wrap {
+.post-wrap {
+    margin: 1.3em 0;
     padding: 0.5em;
     text-align: left;
-    border: 1px solid hsl(0, 0%, 98%);
-    box-shadow: 2px 4px 5px hsl(0, 0%, 80%);
 }
 
-.posts-grid .post-wrap .post-title {
+.post-wrap .post-title {
     margin: 0;
+    padding: 0;
 }
 
-.posts-grid .post-wrap .post-title a {
-    font-size: 1.2em;
+.post-wrap .post-title a {
+    font-size: 1.6em;
+
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
     color: black;
+
+    transition: color 100ms;
 }
 
-.posts-grid .post-wrap .post-date {
-    color: hsl(0, 0%, 20%);
+.post-wrap .post-title a:hover {
+    color: lightgreen;
+}
+
+.post-wrap .post-date .date {
+    font-size: 1.3em;
+}
+
+.post-wrap .post-date .article-h {
+    color: hsl(0, 0%, 24%);
+    font-size: 1.2em;
+}
+
+.post-wrap .read-article-link {
+    font-size: 1.2em;
+    color: lightgreen;
 }

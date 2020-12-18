@@ -23,19 +23,25 @@
         </div>
         @endauth
         <main class="main">
-            <h1 class="main-heading">Izzy MG</h1>
-
-            <h2 class="posts-heading">Posts</h2>
+            <h1 class="main-heading">Izzy MG's Blog</h1>
+            <p class="site-desc">
+                Hi! I'm Izzy Guethert, also known as Izzy MG. I write whatever I feel like here,
+                generally about web development and programming.
+            </p>
             <div class="posts-grid">
                 <aside class="sidebar"/>
                 <div class="articles-container">
                     @foreach ($posts as $post)
                         <article class="post-wrap">
-                            <h3 class="post-date">Article {{ $post->pretty_date }}</h3>
+                            <div class="post-date">
+                                <span class="article-h">Article </span>
+                                <span class="date">{{ $post->pretty_date }}</span>
+                            </div>
                             <h3 class="post-title">
                                 <a href="{{ route('post', [$post->id]) }}">{{ $post->title }}</a>
                             </h3>
                             <p class="post-desc">{{ $post->text }}</p>
+                            <a href="{{ route('post', [$post->id]) }}" class="read-article-link">Read article</a>
                         </article>
                     @endforeach
                 </div>
