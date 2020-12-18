@@ -26,7 +26,7 @@ function generatePrettyDate($created_at) {
     $diffInDays = $parsed_timestamp->diffInDays(\Carbon\Carbon::now());
 
     if ($diffInDays > 30) {
-        return $parsed_timestamp->diffInMonths(\Carbon\Carbon::now()) . 'months ago';
+        return $parsed_timestamp->diffInMonths(\Carbon\Carbon::now()) . ' months ago';
     } elseif ($diffInDays == 0) {
         return 'Today';
     } else {
