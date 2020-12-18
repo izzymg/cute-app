@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+}
+
+h1, h2, h3, h4 {
+    font-weight: normal;
+}
+
+.authed-banner {
+    padding: 0.5em;
+    background: hsl(0, 0%, 98%);
+    box-shadow: 1px 1px 5px hsl(0, 0%, 39%);
+}
+
+main {
+    text-align: center;
+    margin: 0 1em;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.9em;
+}
+
+.posts-grid .post-wrap {
+    padding: 0.5em;
+    text-align: left;
+    border: 1px solid hsl(0, 0%, 98%);
+    box-shadow: 2px 4px 5px hsl(0, 0%, 80%);
+}
+
+.posts-grid .post-wrap .post-title {
+    margin: 0;
+}
+
+.posts-grid .post-wrap .post-title a {
+    font-size: 1.2em;
+    cursor: pointer;
+    text-decoration: underline;
+    color: black;
+}
+
+.posts-grid .post-wrap .post-date {
+    color: hsl(0, 0%, 20%);
+}
