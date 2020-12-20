@@ -3,7 +3,7 @@
     <x-head></x-head>
     <body>
         @auth
-        <div class="authed-banner">
+        <div class="top-bar">
             <span class="logged-in-text">You're logged in. </span>
             <a href="{{ route('dash') }}" class="">Dashboard</a>
         </div>
