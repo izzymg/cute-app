@@ -162,3 +162,18 @@ main {
     color: var(--green);
     text-decoration: none;
 }
+
+.login-main .input-wrap {
+    margin: 2em auto;
+}
+
+.login-main input {
+    margin: 10px auto;
+    display: block;
+    padding: 1.2em;
+}
+
+.login-main label {
+    padding: 0;
+    font-size: 1.2em;
+}

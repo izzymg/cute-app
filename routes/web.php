@@ -34,6 +34,8 @@ function generatePrettyDate($created_at) {
     }
 }
 
+// Routes
+
 Route::get('/', function(PostController $postController) {
     $posts = collect($postController->get())->map(function($post) {
         // Cut text down to bite

@@ -22,7 +22,7 @@ class UserController extends Controller {
         try {
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended('/home');
+                return redirect()->intended('/dash');
             }
         } catch(Exception $e) {
             return 'unknown error, please try again';
