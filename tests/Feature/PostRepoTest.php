@@ -24,22 +24,14 @@ class PostRepoTest extends TestCase
         parent::tearDown();
     }
 
-    public function postProvider(): array {
-        return [
-            [
-                '1',
-                'xcvxcvvxc',
-                'ewtrtewtrewg',
-                '',
-            ]
-        ];
-    }
-
     /**
-     * Test creating a new post repo.
-     * @dataProvider postProvider
+     * Test creating a new post repo. No actual DB ops.
     */
-    public function testCreatePostRepo(string $id, string $title, string $text, string $created_at) {
+    public function testCreatePostRepo() {
+        $id = '1';
+        $title = 'Some meaningful title';
+        $text = 'A highly sophisticated blog post';
+        $created_at = '';
         $postRepo = new PostRepo($id, $title, $text, $created_at);
         $this->assertTrue($postRepo->id == $id);
         $this->assertTrue($postRepo->title == $title);
@@ -48,27 +40,36 @@ class PostRepoTest extends TestCase
     }
 
     /**
-     * Test saving and retrieving post or two.
+     * Test saving, updating and retrieving post.
      * @depends testCreatePostRepo
-     * @dataProvider postProvider
     */
-    public function testSaveRetrievePost(string $id, string $title, string $text, string $created_at) {
-        $postRepo = new PostRepo($id, $title, $text, $created_at);
+    public function testSaveRetrievePost() {
+        // Save a new post
+        $title = 'a';
+        $text = 'b';
+
+        $postRepo = new PostRepo('', $title, $text, '');
         $id = $postRepo->save();
         $this->assertTrue($id == '1');
 
+        // Same data should be retrievable
         $post = PostRepo::getById($id);
-        $this->assertTrue($post->id == $id);
+        $this->assertTrue($post->id == '1');
         $this->assertTrue($post->title == $title);
         $this->assertTrue($post->text == $text);
 
-        $id = $postRepo->save();
-        $this->assertTrue($id == '2');
+        // Change & update
+        $newText = 'cd';
+        $newTitle = 'sdvdvf';
+        $post->text = $newText;
+        $post->title = $newTitle;
+        $post->save();
 
-        $post = PostRepo::getById($id);
-        $this->assertTrue($post->id == $id);
-        $this->assertTrue($post->title == $title);
-        $this->assertTrue($post->text == $text);
+        // Retrieve, should be the same ID with new data
+        $updatedPost = PostRepo::getById($id);
+        $this->assertTrue($updatedPost->id == '1');
+        $this->assertTrue($updatedPost->title == $newTitle);
+        $this->assertTrue($updatedPost->text == $newText);
     }
 
     /**
@@ -80,9 +81,9 @@ class PostRepoTest extends TestCase
         DB::table('posts')->truncate();
 
         $posts = [
-            '1' => new PostRepo(1, 'ab', 'bd', ''),
-            '2' => new PostRepo(2, 'cd', 'fg', ''),
-            '3' => new PostRepo(3, 'bh', 'zg', ''),
+            '1' => new PostRepo('', 'ab', 'bd', ''),
+            '2' => new PostRepo('', 'cd', 'fg', ''),
+            '3' => new PostRepo('', 'bh', 'zg', ''),
         ];
 
         foreach ($posts as $id => $post) {
@@ -93,6 +94,7 @@ class PostRepoTest extends TestCase
 
         $this->assertTrue(count($posts) == count($fetchedPosts));
 
+        // Match all posts in database with created ones
         foreach ($fetchedPosts as $fetched) {
             $this->assertTrue($posts[$fetched->id]->title == $fetched->title);
             $this->assertTrue($posts[$fetched->id]->text == $fetched->text);

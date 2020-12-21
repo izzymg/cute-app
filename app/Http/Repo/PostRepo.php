@@ -20,16 +20,24 @@ class PostRepo {
     }
 
     /**
-     * Saves this post into the database. Sets the created_at to now.
+     * Saves this post into the database.
+     * If the ID of this post is blank, it will insert a new post. Otherwise
+     * it will try to update an existing post.
      * @return string The ID of the post.
     */
     public function save(): string {
-        $id = DB::table('posts')->insertGetId([
-            'title' => $this->title,
-            'text' => $this->text,
-            'created_at' => now(),
-        ]);
-        return $id;
+        if (strlen($this->id) == 0) {
+            $id = DB::table('posts')->insert([
+                'title' => $this->title,
+                'text' => $this->text,
+                'created_at' => now(),
+            ]);
+            return $id;
+        }
+        DB::table('posts')
+            ->where('id', $this->id)
+            ->update(['title' => $this->title, 'text' => $this->text]);
+        return $this->id;
     }
 
     /**
