@@ -44,7 +44,7 @@ class PostRepoTest extends TestCase
     }
 
     /**
-     * Test saving a post.
+     * Test saving a post or two.
      * @depends testCreatePostRepo
      * @dataProvider userProvider
     */
@@ -52,5 +52,7 @@ class PostRepoTest extends TestCase
         $postRepo = new PostRepo($id, $title, $text);
         $id = $postRepo->save();
         $this->assertTrue($id == '1');
+        $id = $postRepo->save();
+        $this->assertTrue($id == '2');
     }
 }
