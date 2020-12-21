@@ -41,9 +41,7 @@ Route::get('/post/{post}', function(PostController $postController, $postId) {
 
 Route::view('/login','login')->name('login');
 
-Route::view('/register', 'register')->name('register')
-    ->middleware('ensureoneuser')
-    ->name('register');
+Route::view('/register', 'register')->middleware('ensureoneuser')->name('register');
 
 Route::get('/dash', function(PostController $postController) {
     $posts = $postController->get();

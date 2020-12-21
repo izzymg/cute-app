@@ -27,7 +27,7 @@ class PostRepo {
     */
     public function save(): string {
         if (strlen($this->id) == 0) {
-            $id = DB::table('posts')->insert([
+            $id = DB::table('posts')->insertGetId([
                 'title' => $this->title,
                 'text' => $this->text,
                 'created_at' => now(),
@@ -54,7 +54,7 @@ class PostRepo {
      * @return array All posts.
     */
     public static function get(): array {
-        $posts = DB::table('posts')->get();
+        $posts = DB::table('posts')->orderBy('created_at', 'desc')->get();
         return $posts->collect()->transform(function($post) {
             return new PostRepo($post->id, $post->title, $post->text, $post->created_at);
         })->toArray();

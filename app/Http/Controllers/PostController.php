@@ -4,56 +4,50 @@ namespace App\Http\Controllers;
 
 use Exception;
 
-use Illuminate\Database\QueryException;
-
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
-
-
+use App\Http\Repo\PostRepo;
 
 
 class PostController extends Controller {
-    public function get() {
+    public function get(): array {
         try {
-            $posts = DB::table('posts')->orderBy('created_at', 'desc')->get();
+            $posts = PostRepo::get();
         } catch(Exception $e) {
             return abort(500);
         }
         return $posts;
     }
 
-    public function getOne($id) {
+    public function getOne(string $id): PostRepo {
         try {
-            $posts = DB::table('posts')->where('id', '=', $id)->first();
-            return $posts;
+            return PostRepo::getById($id);
         } catch(Exception $e) {
             return abort(500);
         }
     }
 
-    public function update(Request $request, $id) {
-        $post = $request->only(['title', 'text']);
+    public function update(Request $request, string $id) {
         try {
-            DB::table('posts')
-                ->where('id', $id)
-                ->update($post);
+            $post = PostRepo::getById($id);
+            if(is_null($post)) {
+                return abort(404);
+            }
+            $post->title = $request->get('title');
+            $post->text = $request->get('text');
+            $post->save();
+            return redirect()->route('post', $id);
         } catch(Exception $e) {
             return abort(500);
         }
-        return 'Post updated';
     }
 
     public function new(Request $request) {
         try {
-            $id = DB::table('posts')->insertGetId([
-                'title' => $request->get('title'),
-                'text' => $request->get('text'),
-                'created_at' => now(),
-            ]);
+            $post = new PostRepo('', $request->get('title'), $request->get('text'), '');
+            $id = $post->save();
             return redirect()->route('post', $id);
         } catch(Exception $e) {
             return $e->getMessage();
