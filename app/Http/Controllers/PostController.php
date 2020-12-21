@@ -59,4 +59,17 @@ class PostController extends Controller {
             return $e->getMessage();
         }
     }
+
+    public static function generatePrettyDate($created_at) {
+        $parsed_timestamp = \Carbon\Carbon::parse($created_at);
+        $diffInDays = $parsed_timestamp->diffInDays(\Carbon\Carbon::now());
+    
+        if ($diffInDays > 30) {
+            return $parsed_timestamp->diffInMonths(\Carbon\Carbon::now()) . ' months ago';
+        } elseif ($diffInDays == 0) {
+            return 'Today';
+        } else {
+            return $diffInDays . ' days ago';
+        }
+    }
 }
